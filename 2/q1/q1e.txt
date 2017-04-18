@@ -1,0 +1,3 @@
+I patched the "mov eax, 1" instruction (that comes when the message is not valid) to a "mov eax, 0" instruction.
+In hex, the "mov eax, 1" instruction is "b8 01 00 00 00". To patch it, I found the offset of the instruction (using ida), then changed the "01" to "00". Now it became "mov eax, 0".
+It works since eax stores the return value when the program exits.

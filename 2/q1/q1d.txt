@@ -1,0 +1,3 @@
+I patched the "jnz short 0x17" instruction (that comes after the call to validate) to a jmp instruction.
+In hex, the "jnz short 0x17" instruction is "75 17". To patch it, I found the offset of the instruction (using ida), then changed the "75" to "eb". Now it became "jmp short 0x17".
+It works since the 0x17 offset is the "Valid msg" offset.

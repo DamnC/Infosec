@@ -1,0 +1,8 @@
+By reversing the binary, we notice that the "verify" function does the following:
+It recieves a pointer to the base of the string contained in the file it read.
+Then, it loads the first byte into a local variable, and the second byte into another.
+By tracking how these variables are used, we infer that the first variable contains the length of the string, and the second one is used to verify the message - (in a valid message, xoring the message characters (up to the length given by the first byte) should be this variable).
+This is exactly what we do in the python file:
+We read the first two bytes into two local variables, xor the neccesary message characters, and compare it to the wanted xor result, extracted from the second byte.
+If it equals, the file is valid.
+Else, it is not.

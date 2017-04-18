@@ -1,0 +1,27 @@
+Using ida, I discovered two dead zones in the readfile function:
+One at 0x0633 with 7 nops.
+The second at 0x05CD with 100 nops.
+
+Then, after contemplating suicide for about 3 hours, I successfully patched the file as needed.
+
+The patches do the following:
+Patch1 simply jumps to our code at patch2.
+Patch2 starts with a jump to skip itself (since we don't want to run it right when the function is called).
+The code following the skip loads the base pointer of the string into eax, then moves the first 4 bytes of the string into ebx.
+We move the bytes "0x04032123" into ecx, in order to compare the first and second byte of the string to "#" and "!".
+If one of the comparisons fails, we abort the patch and simply print the line by jumping to the original print subroutine.
+If it doesn't fail, we increase eax by 2 bytes (to skip the "#!" chars), and call system with eax as the parameter.
+
+I am sorry you had to read all of this.
+Here are some cookies:
+                                    .-'''''-.
+                                    |'-----'|
+                                    |-.....-|
+                                    |       |
+                                    |       |
+                   _,._             |       |
+              __.o`   o`"-.         |       |
+           .-O o `"-.o   O )_,._    |       |
+          ( o   O  o )--.-"`O   o"-.`'-----'`
+           '--------'  (   o  O    o)  
+                        `----------`

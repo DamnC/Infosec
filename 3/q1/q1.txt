@@ -1,0 +1,8 @@
+The vulnerability is an "off by one buffer overflow" vulnerability.
+The program checks that the password is at most 10 chars long (including 10).
+Then, it uses strcat (which doesn't check the buffer size) to concat the salt to the given password.
+Since the buff is 20 chars long, the salt takes 10 chars and the password can take up to 10 chars, the last char of the password overflows the buffer, allowing us to overwrite variables on the stack.
+Conveniently, the overwritten variable is the "auth" variable, which is used to check if we are authorised to run commands as root.
+Overwritting it with the number "1", allows us to bypass the authentication and run commands as root.
+
+Another reason the exploit works - the variables is saved in reverse order on the stack, meaning we are overwritting the lsb of the "auth" variable.

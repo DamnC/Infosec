@@ -1,0 +1,4 @@
+I patched the second byte, and the first byte when needed (when the length in the first byte is bigger than the message).
+I gave the second byte the value it should have (the wanted xor result), given the length in the first byte.
+I did it by calculating the xor result like the program would have done, then patching the second byte with the correct value.
+In case the length from the first byte was bigger than the message, I patched the length of the message instead.

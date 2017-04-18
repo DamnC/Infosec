@@ -1,0 +1,1 @@
+The program uses strcat to concat the password to the salt. Sadly (or not), strcat does not check the size of the buffer. There is also no limitation on the password length, meaning we can overflow the buffer by sending a long password (about 75 chars long), which also crashes the program (since it overwrites the return address) like we need.

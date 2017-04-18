@@ -1,0 +1,2 @@
+I patched the first two bytes - I gave the first byte the value "0x00", so the progarm won't even read the message.
+The I gave the second byte the value "0x9D", since that is the wanted xor result, and the calculated xor doesn't change since the program doesn't read the message.

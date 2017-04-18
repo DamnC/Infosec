@@ -1,0 +1,40 @@
+Using gdb with the previous coredump, it was possible to determine the offset of the return address in the string (67 from the start of the string), and the address of the start of the buffer.
+The exploit string has 3 parts:
+1.The Shellcode
+2.Padding
+3.EIP (the overwritten return address) 
+
+Explanation:
+1.The Shellcode - works as explained in recitation. I had to make sure it has no null bytes (so the string won't get terminated).
+I used xor to zero some registers (ecx and edx specifically).
+I also changed the last byte of the string to null dynamically.
+The python script changed the last byte of the shellcode to "0x01" so it won't be a null byte.
+
+2.Padding - I padded the string with (EIP_OFFEST-len(shellcode)) "P" chars, so I would be able to overwrite the retrun address exactly (which gets poped into eip on return).
+
+3.EIP - by using gdb, I determined the address in which the buffer starts to be 0xbfffe029.
+The bytes order is flipped due to endianess.
+
+
+
+
+
+
+
+
+
+
+
+
+
+					       88                                 
+					       88                                 
+					       88                                 
+			 ,adPPYba, 8b       d8 88,dPPYba,   ,adPPYba, 8b,dPPYba,  
+			a8"     "" `8b     d8' 88P'    "8a a8P_____88 88P'   "Y8  
+			8b          `8b   d8'  88       d8 8PP""""""" 88          
+			"8a,   ,aa   `8b,d8'   88b,   ,a8" "8b,   ,aa 88          
+			 `"Ybbd8"'     Y88'    8Y"Ybbd8"'   `"Ybbd8"' 88          
+				       d8'                                        
+				      d8'                                         
+	

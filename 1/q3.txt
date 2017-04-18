@@ -1,0 +1,2 @@
+The program searches for the first memory address that contains the byte "\x00" (aka "00000000" in binary), starting at an address given to it in the register "ESI".
+When the program ends, ESI contains the result - the first memory address (starting at "old ESI") that contains the byte "\x00".
